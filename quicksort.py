@@ -9,4 +9,4 @@ def quicksort(a):
 		more = [x for x in a[1:] if x >= pivot]
 		return quicksort(less) + [pivot] + quicksort(more)
 
-assignment2_utils.test(quicksort)
+assignment2_utils.run(quicksort)

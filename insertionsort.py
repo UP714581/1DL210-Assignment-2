@@ -10,4 +10,4 @@ def insertion_sort(a):
 		a[j + 1] = key
 	return a
 
-assignment2_utils.test(insertion_sort)
+assignment2_utils.run(insertion_sort)

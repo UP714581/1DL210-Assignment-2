@@ -2,49 +2,47 @@ import random
 import os
 import sys
 
-def test(sorting_algorithm):
-	# check if nums.txt exists
-	if not os.path.exists('nums.txt'):
-		print("No nums.txt found. Creating...")
-		os.system('python rangen.py 16')
-
-	# read the content of nums.txt into an array
+def run(sorting_algorithm):
 	nums = open('nums.txt', 'r')
-	a = []
-	for line in nums:
-		a.append(int(str.strip(line)))
-
-	# sort the array using bubblesort
-	# You need to change here to call your sorting algorithm
-	a = sorting_algorithm(a)
-
-	# output nums_sorted.txt
-	nums_sorted = open('nums_sorted.txt', 'w')
-	for element in a:
-		nums_sorted.write(str(element) + "\n")
-
+	a = [int(str.strip(line)) for line in nums]
 	nums.close()
-	nums_sorted.close()
 
-	# compare your result (nums_sorted.txt) against the result of bubblesorting algorithm (nums_ref.txt)
-	# os.system('sort nums.txt < nums_ref.txt')
-	if not os.name == 'posix':
-		nums_ref = open('nums_ref.txt', 'w')
-		for element in sorted(a):
-			nums_ref.write(str(element) + "\n")
-		nums_ref.close()
-		ret = os.system('FC nums_sorted.txt nums_ref.txt')
-	else:
-		os.system('sort -n nums.txt > nums_ref.txt')
-		ret = os.system('diff nums_sorted.txt nums_ref.txt')
+	result = sorting_algorithm(a)
 
-	# output result
-	if int(ret) == 0:
-		print("Sorted!")
+	nums_sorted = open('nums_sorted.txt', 'w')
+	for element in result:
+		nums_sorted.write(str(element) + '\n')
+	nums_sorted.close() 
 
-	if int(ret) == 1:
-		print("Not sorted!")
+	compare_with_bubblesort(a)
 
+def compare_with_bubblesort(unsorted_list):
+	nums_ref = open('nums_ref.txt', 'w')
+	for element in bubblesort(unsorted_list):
+		nums_ref.write(str(element) + '\n')
+	nums_ref.close()
+
+	command = 'diff' if os.name == 'posix' else 'FC'
+
+	ret = os.system(str.format('{0} nums_sorted.txt nums_ref.txt', command))
+
+	print('Sorted!' if int(ret) == 0 else 'Not Sorted!')
+
+def swap(a, i, j):
+    t = a[j]
+    a[j] = a[i]
+    a[i] = t
+
+
+def bubblesort(a):
+    sorted = False
+    while not sorted:
+        sorted = True
+        for i in range(len(a)-1):
+            if a[i] > a[i+1]:
+                swap(a, i, i+1)
+                sorted = False
+    return a
 
 
 
