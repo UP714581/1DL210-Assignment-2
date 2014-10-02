@@ -5,8 +5,8 @@ import sys
 def test(sorting_algorithm):
 	# check if nums.txt exists
 	if not os.path.exists('nums.txt'):
-		print("First create nums.txt")
-		sys.exit(0)
+		print("No nums.txt found. Creating...")
+		os.system('python rangen.py 16')
 
 	# read the content of nums.txt into an array
 	nums = open('nums.txt', 'r')
