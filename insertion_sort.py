@@ -8,5 +8,6 @@ def insertion_sort(a):
 			a[j + 1] = a[j]
 			j -= 1
 		a[j + 1] = key
+	return a
 
 assignment2_utils.test(insertion_sort)
