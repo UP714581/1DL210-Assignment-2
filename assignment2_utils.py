@@ -17,7 +17,6 @@ def test(sorting_algorithm):
 	# sort the array using bubblesort
 	# You need to change here to call your sorting algorithm
 	a = sorting_algorithm(a)
-	print(a)
 
 	# output nums_sorted.txt
 	nums_sorted = open('nums_sorted.txt', 'w')
